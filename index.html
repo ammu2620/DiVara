@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy 2nd Anniversary 💍 DiVara</title>
+
+  <style>
+    :root{
+      --bg1:#fff1f2;
+      --bg2:#fbcfe8;
+      --card:#ffffffcc;
+      --text:#2b2b2b;
+      --accent:#db2777;
+      --shadow: 0 12px 40px rgba(0,0,0,.12);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(circle at top, var(--bg1), var(--bg2));
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+
+    /* ============ WELCOME OVERLAY ============ */
+    #welcome{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(circle at center, rgba(255,255,255,.10), rgba(0,0,0,.55)),
+        linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.55));
+      overflow:hidden;
+    }
+    #welcome .glow{
+      position:absolute;
+      width:520px;
+      height:520px;
+      border-radius:50%;
+      background: radial-gradient(circle, rgba(255,255,255,.35), rgba(255,255,255,0));
+      filter: blur(10px);
+      opacity:.85;
+      transform: translateY(-10px);
+      animation: glowPulse 2.4s ease-in-out infinite;
+    }
+    @keyframes glowPulse{
+      0%,100%{ transform:scale(1) translateY(-10px); opacity:.75; }
+      50%{ transform:scale(1.07) translateY(-10px); opacity:.95; }
+    }
+
+    /* Hands container */
+    .handsWrap{
+      width:min(340px, 78vw);
+      aspect-ratio: 1/1;
+      position:relative;
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow: 0 18px 55px rgba(0,0,0,.45);
+      border:1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(6px);
+    }
+    .handHalf{
+      position:absolute; top:0; bottom:0;
+      width:50%;
+      background-image:url("hands.png");
+      background-size:200% 100%;
+      background-repeat:no-repeat;
+      filter: saturate(1.05) contrast(1.02);
+    }
+    .handHalf.left{ left:0; background-position:left center; }
+    .handHalf.right{ right:0; background-position:right center; }
+
+    /* The “light” that opens in the middle */
+    .revealLight{
+      position:absolute;
+      inset:0;
+      background: radial-gradient(circle at center, rgba(255,255,255,.0), rgba(255,255,255,.0));
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .welcomeText{
+      margin-top:16px;
+      text-align:center;
+      color:#fff;
+      padding:0 18px;
+    }
+    .welcomeText h2{
+      margin:0;
+      font-size:20px;
+      letter-spacing:.2px;
+      font-weight:800;
+    }
+    .welcomeText p{
+      margin:10px 0 0;
+      opacity:.9;
+      font-size:14px;
+      line-height:1.4;
+    }
+    .enterPill{
+      margin-top:14px;
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      font-weight:700;
+      letter-spacing:.2px;
+      user-select:none;
+    }
+    .enterPill span{ color:#ffd1dc; }
+
+    /* Opening animation */
+    #welcome.open .handHalf.left{ animation: openLeft 1.05s ease-in-out forwards; }
+    #welcome.open .handHalf.right{ animation: openRight 1.05s ease-in-out forwards; }
+    #welcome.open .revealLight{ animation: lightOpen 1.05s ease-in-out forwards; }
+    #welcome.open .handsWrap{ animation: wrapFade 1.05s ease-in-out forwards; }
+    #welcome.open .welcomeText{ animation: textFade 0.6s ease forwards; }
+
+    @keyframes openLeft{
+      to{ transform: translateX(-120%); opacity:.0; }
+    }
+    @keyframes openRight{
+      to{ transform: translateX(120%); opacity:.0; }
+    }
+    @keyframes lightOpen{
+      0%{ opacity:0; background: radial-gradient(circle at center, rgba(255,255,255,.0), rgba(255,255,255,.0)); }
+      50%{ opacity:1; background: radial-gradient(circle at center, rgba(255,255,255,.55), rgba(255,255,255,0)); }
+      100%{ opacity:0; background: radial-gradient(circle at center, rgba(255,255,255,.0), rgba(255,255,255,0)); }
+    }
+    @keyframes wrapFade{
+      0%{ transform: scale(1); }
+      80%{ transform: scale(1.02); }
+      100%{ transform: scale(1.03); opacity:0; }
+    }
+    @keyframes textFade{ to{ opacity:0; transform: translateY(6px); } }
+
+    /* After open, hide overlay */
+    #welcome.hidden{ display:none; }
+
+    /* ============ MAIN SITE ============ */
+    .wrap{
+      max-width:960px;
+      margin:0 auto;
+      padding:24px 16px 86px;
+      position:relative;
+      z-index:2;
+      opacity:0;
+      transform: translateY(8px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    body.ready .wrap{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid #ffffff80;
+      backdrop-filter: blur(10px);
+      border-radius:24px;
+      padding:18px;
+      box-shadow: var(--shadow);
+    }
+    header{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .title{display:flex;align-items:center;gap:12px;}
+    .badge{
+      width:46px;height:46px;border-radius:14px;
+      background: linear-gradient(135deg, #f43f5e, #db2777);
+      display:grid;place-items:center;color:white;font-size:22px;
+      box-shadow:0 10px 25px rgba(219,39,119,.30);
+    }
+    h1{margin:0;font-size:22px}
+    p{margin:8px 0 0; line-height:1.55}
+
+    .nav{display:flex; gap:10px; flex-wrap:wrap;}
+    button{
+      border:0;padding:10px 14px;border-radius:999px;background:#fff;
+      box-shadow:0 8px 20px rgba(0,0,0,.10);
+      cursor:pointer;font-weight:700;
+    }
+    .nav button.active{
+      background: var(--accent);
+      color:#fff;
+      box-shadow:0 10px 25px rgba(219,39,119,.30);
+    }
+    button.primary{
+      background: var(--accent);
+      color:#fff;
+      box-shadow:0 10px 25px rgba(219,39,119,.30);
+    }
+
+    .page{display:none;margin-top:14px;}
+    .page.active{display:block;}
+
+    .hero{display:grid;gap:14px;grid-template-columns: 1.2fr .8fr;}
+    @media (max-width:780px){.hero{grid-template-columns:1fr;}}
+
+    .big{
+      font-size:18px;
+      padding:14px;
+      border-radius:18px;
+      background:#ffffffb3;
+      border:1px solid #fff;
+    }
+    .hint{font-size:12px;opacity:.85}
+    .pill{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:999px;
+      background:#ffffffb3;
+      border:1px solid #fff;
+      font-weight:700;
+    }
+    .footer{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    /* Countdown */
+    .countdown{display:grid;grid-template-columns: repeat(4, 1fr);gap:10px;}
+    .tick{text-align:center;padding:12px 10px;border-radius:18px;background:#fff;border:1px solid #ffffff90;}
+    .tick b{display:block;font-size:22px;}
+    .tick span{font-size:12px;opacity:.75}
+
+    /* Typewriter */
+    .tw{
+      margin-top:10px;
+      padding:12px 12px;
+      border-radius:18px;
+      background:#fff;
+      border:1px solid #ffffff90;
+      min-height:64px;
+      font-size:16px;
+      line-height:1.55;
+      white-space:pre-wrap;
+    }
+    .cursor{
+      display:inline-block;
+      width:10px;
+      animation: blink 1s steps(2, start) infinite;
+      color: var(--accent);
+      font-weight:900;
+    }
+    @keyframes blink { to { visibility: hidden; } }
+
+    /* Memories gallery animations */
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width:780px){.gallery{grid-template-columns: repeat(2, 1fr);}}
+    .ph{
+      border-radius:20px;
+      overflow:hidden;
+      border:1px solid #ffffff90;
+      background:#fff;
+      aspect-ratio: 1/1;
+      position:relative;
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      opacity:0;
+      transform: translateY(16px) scale(.98);
+      transition: opacity .7s ease, transform .7s ease;
+      cursor:pointer;
+    }
+    .ph.show{
+      opacity:1;
+      transform: translateY(0) scale(1);
+    }
+    .ph img{
+      width:100%; height:100%;
+      object-fit:cover;
+      display:block;
+      transform: scale(1.03);
+      transition: transform .7s ease;
+    }
+    .ph:hover img{ transform: scale(1.08); }
+    .cap{
+      position:absolute;
+      left:10px; right:10px; bottom:10px;
+      background:#ffffffd9;
+      padding:8px 10px;
+      border-radius:14px;
+      font-size:12px;
+      backdrop-filter: blur(6px);
+    }
+    /* Gentle float */
+    @media (prefers-reduced-motion: no-preference){
+      .ph.show{ animation: floaty 3.4s ease-in-out infinite; }
+      .ph.show:nth-child(2){ animation-delay:.25s; }
+      .ph.show:nth-child(3){ animation-delay:.5s; }
+      .ph.show:nth-child(4){ animation-delay:.15s; }
+      .ph.show:nth-child(5){ animation-delay:.35s; }
+      .ph.show:nth-child(6){ animation-delay:.6s; }
+      @keyframes floaty{
+        0%,100%{ transform: translateY(0) scale(1); }
+        50%{ transform: translateY(-6px) scale(1.01); }
+      }
+    }
+
+    /* Lightbox */
+    #lightbox{
+      position:fixed; inset:0;
+      z-index:9998;
+      background: rgba(0,0,0,.75);
+      display:none;
+      place-items:center;
+      padding:18px;
+    }
+    #lightbox.show{ display:grid; }
+    .lbCard{
+      width:min(92vw, 720px);
+      border-radius:22px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow: 0 24px 70px rgba(0,0,0,.45);
+      position:relative;
+    }
+    .lbCard img{ width:100%; height:auto; display:block; }
+    .lbCap{
+      padding:12px 14px;
+      font-weight:700;
+    }
+    .lbClose{
+      position:absolute;
+      top:10px; right:10px;
+      border:0;
+      border-radius:999px;
+      padding:10px 12px;
+      background: rgba(255,255,255,.92);
+      cursor:pointer;
+      font-weight:900;
+    }
+
+    /* Floating hearts (light) */
+    .heart{
+      position:fixed;
+      bottom:-40px;
+      font-size:22px;
+      animation: floatUp linear forwards;
+      z-index:1;
+      pointer-events:none;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,.20));
+    }
+    @keyframes floatUp{
+      from{ transform: translateY(0) translateX(0) rotate(0deg); opacity:0; }
+      10%{opacity:1}
+      to{ transform: translateY(-110vh) translateX(var(--drift)) rotate(18deg); opacity:0; }
+    }
+
+    textarea{
+      width:100%;
+      min-height:200px;
+      border-radius:18px;
+      border:1px solid #ffffff90;
+      padding:12px 12px;
+      font-size:14px;
+      outline:none;
+      resize:vertical;
+      background:#fff;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- WELCOME OVERLAY -->
+  <div id="welcome" aria-label="Welcome screen">
+    <div class="glow"></div>
+
+    <div style="display:grid; place-items:center;">
+      <div class="handsWrap" id="handsWrap">
+        <div class="handHalf left"></div>
+        <div class="handHalf right"></div>
+        <div class="revealLight"></div>
+      </div>
+
+      <div class="welcomeText">
+        <h2>DiVara 💍</h2>
+        <p>Happy 2nd Wedding Anniversary<br/>Vara Prasad & Divya Sri</p>
+        <div class="enterPill">Tap to open <span>your world</span> ✨</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" role="dialog" aria-modal="true">
+    <div class="lbCard">
+      <button class="lbClose" onclick="closeLightbox()">✕</button>
+      <img id="lbImg" alt="Memory">
+      <div class="lbCap" id="lbCap"></div>
+    </div>
+  </div>
+
+  <!-- MAIN SITE -->
+  <div class="wrap">
+    <div class="card">
+      <header>
+        <div class="title">
+          <div class="badge">💍</div>
+          <div>
+            <h1>Happy 2nd Anniversary, <span>DiVara</span> 💖</h1>
+            <p class="hint">Vara Prasad & Divya Sri — a small surprise made with love.</p>
+          </div>
+        </div>
+
+        <div class="nav">
+          <button class="active" onclick="showPage('home', this)">Home</button>
+          <button onclick="showPage('memories', this)">Memories</button>
+          <button onclick="showPage('letter', this)">Letter</button>
+        </div>
+      </header>
+
+      <!-- HOME -->
+      <section id="home" class="page active">
+        <div class="hero">
+          <div class="big">
+            <b>Two years… and a lifetime to go ❤️</b>
+            <div id="twHome" class="tw"></div>
+
+            <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+              <p class="hint" style="margin:0">
+                Music starts when your world opens 🎶<br>
+                Then explore the memories… slowly.
+              </p>
+              <button id="musicBtn" class="primary" onclick="toggleMusic()">Pause song ⏸️</button>
+            </div>
+          </div>
+
+          <div class="big">
+            <b>Countdown to Feb 5</b>
+            <p class="hint">A small reminder of a big day 💖</p>
+
+            <div class="countdown" style="margin-top:10px">
+              <div class="tick"><b id="d">0</b><span>Days</span></div>
+              <div class="tick"><b id="h">0</b><span>Hours</span></div>
+              <div class="tick"><b id="m">0</b><span>Minutes</span></div>
+              <div class="tick"><b id="s">0</b><span>Seconds</span></div>
+            </div>
+
+            <div class="footer">
+              <div class="pill">Blessings & love 🤍</div>
+              <button class="primary" onclick="burstHearts()">Tap for hearts ✨</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEMORIES -->
+      <section id="memories" class="page">
+        <div class="big">
+          <b>Memories that move 💫</b>
+          <p class="hint">Tap any photo to open it. (Photos: 1.jpeg…6.jpeg)</p>
+        </div>
+
+        <div class="gallery" id="gallery">
+          <div class="ph" data-src="1.jpeg" data-cap="A moment to remember">
+            <img src="1.jpeg" alt="Memory 1"><div class="cap">A moment to remember</div>
+          </div>
+          <div class="ph" data-src="2.jpeg" data-cap="Together looks perfect">
+            <img src="2.jpeg" alt="Memory 2"><div class="cap">Together looks perfect</div>
+          </div>
+          <div class="ph" data-src="3.jpeg" data-cap="Smiles that stay">
+            <img src="3.jpeg" alt="Memory 3"><div class="cap">Smiles that stay</div>
+          </div>
+          <div class="ph" data-src="4.jpeg" data-cap="Your best chapter">
+            <img src="4.jpeg" alt="Memory 4"><div class="cap">Your best chapter</div>
+          </div>
+          <div class="ph" data-src="5.jpeg" data-cap="Love in little things">
+            <img src="5.jpeg" alt="Memory 5"><div class="cap">Love in little things</div>
+          </div>
+          <div class="ph" data-src="6.jpeg" data-cap="Forever vibes">
+            <img src="6.jpeg" alt="Memory 6"><div class="cap">Forever vibes</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LETTER -->
+      <section id="letter" class="page">
+        <div class="big">
+          <b>A letter for DiVara 💌</b>
+          <div id="twLetter" class="tw"></div>
+
+          <p class="hint" style="margin-top:10px">
+            A small wish from the heart…
+          </p>
+
+          <textarea id="annivLetter">Dear Vara Prasad & Divya Sri (DiVara),
+
+Happy 2nd Wedding Anniversary 💍❤️
+Two years may sound small in time, but it’s already a beautiful proof of love, patience, and togetherness.
+
+Watching you both as DiVara makes my heart happy — the way you support each other, respect each other, and keep choosing each other every day.
+May your bond grow stronger with every year, and may your home always be filled with peace, laughter, and God’s blessings.
+
+Wishing you a lifetime of togetherness and endless happiness.
+
+Happy Anniversary, DiVara ❤️
+With lots of love,
+— (Your Name)</textarea>
+
+          <div class="footer">
+            <div class="pill">Tap Memories → open photos ✨</div>
+            <button class="primary" onclick="copyAnnivLetter()">Copy letter</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- AUDIO (song.mpeg in repo root) -->
+  <audio id="bgm" loop>
+    <source src="song.mpeg" type="audio/mpeg">
+  </audio>
+
+  <script>
+    /* ====== OPEN WORLD (WELCOME) ====== */
+    const welcome = document.getElementById('welcome');
+    const bgm = document.getElementById('bgm');
+    const musicBtn = document.getElementById('musicBtn');
+    let isPlaying = false;
+
+    function setMusicButton(){
+      if(!musicBtn) return;
+      musicBtn.textContent = isPlaying ? "Pause song ⏸️" : "Play song 🎶";
+    }
+
+    function openWorld(){
+      if(!welcome || welcome.classList.contains('open')) return;
+
+      welcome.classList.add('open');
+
+      // Start music right after tap (iPhone allows because user interacted)
+      try{
+        bgm.volume = 0.6;
+        bgm.play().then(()=>{
+          isPlaying = true;
+          setMusicButton();
+        }).catch(()=>{
+          // if iPhone blocks once, user can press play button
+          isPlaying = false;
+          setMusicButton();
+        });
+      }catch(e){
+        isPlaying = false;
+        setMusicButton();
+      }
+
+      // After animation, hide overlay and reveal site
+      setTimeout(()=>{
+        welcome.classList.add('hidden');
+        document.body.classList.add('ready');
+        burstHearts(10);
+        startTypewriter('home');
+      }, 1050);
+    }
+
+    // Tap anywhere on welcome screen
+    welcome.addEventListener('click', openWorld);
+
+    function toggleMusic(){
+      if(!bgm) return;
+      if(!isPlaying){
+        bgm.volume = 0.6;
+        bgm.play().then(()=>{
+          isPlaying = true;
+          setMusicButton();
+        }).catch(()=>{
+          alert("Tap again to start music ❤️ (iPhone rule)");
+        });
+      }else{
+        bgm.pause();
+        isPlaying = false;
+        setMusicButton();
+      }
+    }
+    setMusicButton();
+
+    /* ====== NAV / PAGES ====== */
+    function showPage(id, btn){
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+
+      document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+      if(btn) btn.classList.add('active');
+
+      burstHearts(8);
+      if(id === 'home') startTypewriter('home');
+      if(id === 'letter') startTypewriter('letter');
+
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    /* ====== TYPEWRITER ====== */
+    const twText = {
+      home:
+`Happy 2nd Wedding Anniversary, DiVara 💍
+Vara Prasad & Divya Sri —
+two hearts, one beautiful journey.
+
+May your love grow deeper,
+your home grow warmer,
+and your smiles grow brighter every year. ❤️`,
+      letter:
+`DiVara,
+your love is a blessing to the whole family.
+May God keep you both happy, protected, and always together. 💖`
+    };
+
+    const twState = { home:false, letter:false, timer:null };
+
+    function typewrite(el, text, speed=26){
+      el.innerHTML = "";
+      let i = 0;
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      cursor.textContent = '|';
+      el.appendChild(cursor);
+
+      function step(){
+        if(i <= text.length){
+          const shown = text.slice(0, i);
+          el.innerHTML = shown.replace(/\n/g, "<br>");
+          el.appendChild(cursor);
+          i++;
+          twState.timer = setTimeout(step, speed);
+        }else{
+          el.innerHTML = text.replace(/\n/g, "<br>");
+          el.appendChild(cursor);
+        }
+      }
+      step();
+    }
+
+    function startTypewriter(which){
+      if(twState[which]) return;
+      twState[which] = true;
+      if(which === 'home') typewrite(document.getElementById('twHome'), twText.home);
+      if(which === 'letter') typewrite(document.getElementById('twLetter'), twText.letter);
+    }
+
+    /* ====== COUNTDOWN: Feb 5 12:00 AM ====== */
+    function defaultTarget(){
+      const now = new Date();
+      const year = now.getFullYear();
+      return new Date(year, 1, 5, 0, 0, 0); // Feb = 1
+    }
+    const target = defaultTarget();
+
+    function tick(){
+      const now = new Date();
+      let diff = target - now;
+      if(diff < 0) diff = 0;
+
+      const sec = Math.floor(diff/1000);
+      const d = Math.floor(sec/86400);
+      const h = Math.floor((sec%86400)/3600);
+      const m = Math.floor((sec%3600)/60);
+      const s = sec%60;
+
+      document.getElementById('d').textContent = d;
+      document.getElementById('h').textContent = h;
+      document.getElementById('m').textContent = m;
+      document.getElementById('s').textContent = s;
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    /* ====== HEARTS ====== */
+    function spawnHeart(x=null, count=1){
+      for(let i=0;i<count;i++){
+        const h = document.createElement('div');
+        h.className = 'heart';
+        h.textContent = ['❤','💖','💘','💝','💕'][Math.floor(Math.random()*5)];
+        const left = x ?? (Math.random()*100);
+        h.style.left = left + 'vw';
+        h.style.setProperty('--drift', (Math.random()*120 - 60) + 'px');
+        const dur = 5 + Math.random()*4;
+        h.style.animationDuration = dur + 's';
+        h.style.fontSize = (18 + Math.random()*18) + 'px';
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(), dur*1000);
+      }
+    }
+    function burstHearts(n=18){ for(let i=0;i<n;i++) spawnHeart(null, 1); }
+    setInterval(()=>spawnHeart(), 900);
+    document.addEventListener('click', (e)=>{
+      // don't spawn hearts on welcome taps (avoid clutter)
+      if(!document.body.classList.contains('ready')) return;
+      const vw = (e.clientX / window.innerWidth) * 100;
+      spawnHeart(vw, 2);
+    });
+
+    /* ====== MEMORIES: reveal on scroll + lightbox ====== */
+    const phCards = Array.from(document.querySelectorAll('.ph'));
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbCap = document.getElementById('lbCap');
+
+    function openLightbox(src, cap){
+      lbImg.src = src;
+      lbCap.textContent = cap || "";
+      lb.classList.add('show');
+    }
+    function closeLightbox(){
+      lb.classList.remove('show');
+      lbImg.src = "";
+      lbCap.textContent = "";
+    }
+    lb.addEventListener('click', (e)=>{
+      if(e.target === lb) closeLightbox();
+    });
+
+    phCards.forEach(card=>{
+      card.addEventListener('click', ()=>{
+        openLightbox(card.dataset.src, card.dataset.cap);
+      });
+    });
+
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){
+          en.target.classList.add('show');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    phCards.forEach(c=>io.observe(c));
+
+    /* ====== COPY LETTER ====== */
+    async function copyAnnivLetter(){
+      const text = document.getElementById('annivLetter').value.trim();
+      try{
+        await navigator.clipboard.writeText(text);
+        alert("Copied 💖");
+      }catch(e){
+        alert("Couldn’t copy—select and copy manually.");
+      }
+    }
+  </script>
+</body>
+</html>
