@@ -26,52 +26,52 @@
     a{color:inherit}
 
     /* ============ WELCOME OVERLAY ============ */
-   #welcome{
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  display:grid;
-  place-items:center;
-  overflow:hidden;
+    #welcomeOverlay{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
 
-  /* 🌈 Multicolor soft light background */
-  background:
-    radial-gradient(900px 600px at 10% 15%, rgba(255, 120, 190, .55), transparent 60%),
-    radial-gradient(850px 520px at 90% 25%, rgba(120, 210, 255, .55), transparent 60%),
-    radial-gradient(900px 650px at 35% 90%, rgba(255, 230, 130, .55), transparent 60%),
-    radial-gradient(900px 650px at 80% 85%, rgba(170, 130, 255, .50), transparent 60%),
-    linear-gradient(180deg, #fff1f8, #f6f0ff);
-}
-/* Floating colorful blobs */
-#welcome::before,
-#welcome::after{
-  content:"";
-  position:absolute;
-  inset:-20%;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(255, 0, 120, .20), transparent 55%),
-    radial-gradient(circle at 80% 20%, rgba(0, 180, 255, .18), transparent 55%),
-    radial-gradient(circle at 60% 80%, rgba(255, 220, 0, .18), transparent 55%),
-    radial-gradient(circle at 25% 85%, rgba(140, 80, 255, .18), transparent 55%);
-  filter: blur(18px);
-  opacity:.9;
-  transform: translate3d(0,0,0);
-  animation: blobsMove 10s ease-in-out infinite;
-  pointer-events:none;
-}
-#welcome::after{
-  opacity:.65;
-  animation-duration: 14s;
-  animation-direction: reverse;
-}
+      /* 🌈 Multicolor soft light background */
+      background:
+        radial-gradient(900px 600px at 10% 15%, rgba(255, 120, 190, .55), transparent 60%),
+        radial-gradient(850px 520px at 90% 25%, rgba(120, 210, 255, .55), transparent 60%),
+        radial-gradient(900px 650px at 35% 90%, rgba(255, 230, 130, .55), transparent 60%),
+        radial-gradient(900px 650px at 80% 85%, rgba(170, 130, 255, .50), transparent 60%),
+        linear-gradient(180deg, #fff1f8, #f6f0ff);
+    }
 
-@keyframes blobsMove{
-  0%{ transform: translate(-2%, -1%) scale(1); }
-  50%{ transform: translate(2%, 1%) scale(1.05); }
-  100%{ transform: translate(-2%, -1%) scale(1); }
-}
+    /* Floating colorful blobs */
+    #welcomeOverlay::before,
+    #welcomeOverlay::after{
+      content:"";
+      position:absolute;
+      inset:-20%;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 0, 120, .20), transparent 55%),
+        radial-gradient(circle at 80% 20%, rgba(0, 180, 255, .18), transparent 55%),
+        radial-gradient(circle at 60% 80%, rgba(255, 220, 0, .18), transparent 55%),
+        radial-gradient(circle at 25% 85%, rgba(140, 80, 255, .18), transparent 55%);
+      filter: blur(18px);
+      opacity:.9;
+      transform: translate3d(0,0,0);
+      animation: blobsMove 10s ease-in-out infinite;
+      pointer-events:none;
+    }
+    #welcomeOverlay::after{
+      opacity:.65;
+      animation-duration: 14s;
+      animation-direction: reverse;
+    }
+    @keyframes blobsMove{
+      0%{ transform: translate(-2%, -1%) scale(1); }
+      50%{ transform: translate(2%, 1%) scale(1.05); }
+      100%{ transform: translate(-2%, -1%) scale(1); }
+    }
 
-    #welcome .glow{
+    #welcomeOverlay .glow{
       position:absolute;
       width:520px;
       height:520px;
@@ -81,44 +81,37 @@
       opacity:.85;
       transform: translateY(-10px);
       animation: glowPulse 2.4s ease-in-out infinite;
+      pointer-events:none;
     }
     @keyframes glowPulse{
       0%,100%{ transform:scale(1) translateY(-10px); opacity:.75; }
       50%{ transform:scale(1.07) translateY(-10px); opacity:.95; }
     }
 
-    /* Hands container */
+    /* Hands container (clean + heartbeat) */
     .handsWrap{
       width:min(340px, 78vw);
       aspect-ratio: 1/1;
       position:relative;
       border-radius:28px;
       overflow:hidden;
-      box-shadow: 0 18px 55px rgba(0,0,0,.45);
-      border:1px solid rgba(255,255,255,.25);
-      background: rgba(255,255,255,.06);
-      backdrop-filter: blur(6px);
-      .handsWrap{
-  /* keep your existing styles */
-  animation: heartbeat 1.25s ease-in-out infinite;
-  transform-origin: center;
-}
-      @keyframes heartbeat{
-  0%, 100% { transform: scale(1); }
-  14% { transform: scale(1.03); }
-  28% { transform: scale(1); }
-  42% { transform: scale(1.04); }
-  70% { transform: scale(1); }
-        .handsWrap{
-  box-shadow:
-    0 20px 50px rgba(219,39,119,.25),
-    0 0 25px rgba(255,255,255,.45);
-}
-
-}
-
-
+      border:1px solid rgba(255,255,255,.35);
+      background: rgba(255,255,255,.10);
+      backdrop-filter: blur(8px);
+      box-shadow:
+        0 20px 50px rgba(219,39,119,.25),
+        0 0 25px rgba(255,255,255,.45);
+      animation: heartbeat 1.25s ease-in-out infinite;
+      transform-origin:center;
     }
+    @keyframes heartbeat{
+      0%, 100% { transform: scale(1); }
+      14% { transform: scale(1.03); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.04); }
+      70% { transform: scale(1); }
+    }
+
     .handHalf{
       position:absolute; top:0; bottom:0;
       width:50%;
@@ -130,7 +123,6 @@
     .handHalf.left{ left:0; background-position:left center; }
     .handHalf.right{ right:0; background-position:right center; }
 
-    /* The “light” that opens in the middle */
     .revealLight{
       position:absolute;
       inset:0;
@@ -139,79 +131,63 @@
       pointer-events:none;
     }
 
-   .welcomeText{
-  margin-top:16px;
-  text-align:center;
-  color:#ffffff;
-  padding:0 18px;
-  text-shadow: 0 8px 28px rgba(0,0,0,.20);
-}
-
- .welcomeText h2{
-  margin:0;
-  font-size:34px;
-  letter-spacing:.5px;
-  font-weight:900;
-  color:#db2777; /* bright rose pink */
-  text-shadow:
-    0 2px 6px rgba(255,255,255,.6),
-    0 8px 25px rgba(219,39,119,.45);
-}
-
-
- .welcomeText p{
-  margin:12px 0 0;
-  font-size:17px;
-  font-weight:800;
-  color:#4a044e; /* deep purple */
-  text-shadow:
-    0 2px 4px rgba(255,255,255,.7);
-}
-
-
-   .enterPill{
-  margin-top:18px;
-  display:inline-block;
-  padding:14px 22px;
-  border-radius:999px;
-  background: linear-gradient(
-    135deg,
-    rgba(255,255,255,.85),
-    rgba(255,230,245,.9)
-  );
-  border:1px solid rgba(219,39,119,.45);
-  box-shadow:
-    0 10px 30px rgba(219,39,119,.25),
-    inset 0 0 10px rgba(255,255,255,.6);
-  font-weight:900;
-  font-size:17px;
-  letter-spacing:.3px;
-  color:#111827; /* dark text */
-}
-.enterPill span{
-  color:#db2777;
-  text-shadow: 0 2px 6px rgba(219,39,119,.35);
-}
-
-
-
-    /* Opening animation */
-    #welcome.open .handHalf.left{ animation: openLeft 1.05s ease-in-out forwards; }
-    #welcome.open .handHalf.right{ animation: openRight 1.05s ease-in-out forwards; }
-    #welcome.open .revealLight{ animation: lightOpen 1.05s ease-in-out forwards; }
-    #welcome.open .handsWrap{ animation: wrapFade 1.05s ease-in-out forwards; }
-    #welcome.open .welcomeText{ animation: textFade 0.6s ease forwards; }
-
-    @keyframes openLeft{
-      to{ transform: translateX(-120%); opacity:.0; }
+    .welcomeText{
+      margin-top:16px;
+      text-align:center;
+      padding:0 18px;
+      text-shadow: 0 8px 28px rgba(0,0,0,.20);
     }
-    @keyframes openRight{
-      to{ transform: translateX(120%); opacity:.0; }
+    .welcomeText h2{
+      margin:0;
+      font-size:34px;
+      letter-spacing:.5px;
+      font-weight:900;
+      color:#db2777;
+      text-shadow:
+        0 2px 6px rgba(255,255,255,.6),
+        0 8px 25px rgba(219,39,119,.45);
     }
+    .welcomeText p{
+      margin:12px 0 0;
+      font-size:17px;
+      font-weight:800;
+      color:#4a044e;
+      text-shadow: 0 2px 4px rgba(255,255,255,.7);
+    }
+    .enterPill{
+      margin-top:18px;
+      display:inline-block;
+      padding:14px 22px;
+      border-radius:999px;
+      background: linear-gradient(135deg, rgba(255,255,255,.85), rgba(255,230,245,.9));
+      border:1px solid rgba(219,39,119,.45);
+      box-shadow:
+        0 10px 30px rgba(219,39,119,.25),
+        inset 0 0 10px rgba(255,255,255,.6);
+      font-weight:900;
+      font-size:17px;
+      letter-spacing:.3px;
+      color:#111827;
+      user-select:none;
+    }
+    .enterPill span{
+      color:#db2777;
+      text-shadow: 0 2px 6px rgba(219,39,119,.35);
+    }
+
+    /* Opening animation (overlay) */
+    #welcomeOverlay.open .handHalf.left{ animation: openLeft 1.05s ease-in-out forwards; }
+    #welcomeOverlay.open .handHalf.right{ animation: openRight 1.05s ease-in-out forwards; }
+    #welcomeOverlay.open .revealLight{ animation: lightOpen 1.05s ease-in-out forwards; }
+    #welcomeOverlay.open .handsWrap{ animation: wrapFade 1.05s ease-in-out forwards; }
+    #welcomeOverlay.open .welcomeText{ animation: textFade 0.6s ease forwards; }
+
+    @keyframes openLeft{ to{ transform: translateX(-120%); opacity:0; } }
+    @keyframes openRight{ to{ transform: translateX(120%); opacity:0; } }
     @keyframes lightOpen{
-      0%{ opacity:0; background: radial-gradient(circle at center, rgba(255,255,255,.0), rgba(255,255,255,.0)); }
+      0%{ opacity:0; background: radial-gradient(circle at center, rgba(255,255,255,0), rgba(255,255,255,0)); }
       50%{ opacity:1; background: radial-gradient(circle at center, rgba(255,255,255,.55), rgba(255,255,255,0)); }
-      100%{ opacity:0; background: radial-gradient(circle at center, rgba(255,255,255,.0), rgba(255,255,255,0)); }
+      100%{ opacity:0; background: radial-gradient(circle at center, rgba(255,255,255,0), rgba(255,255,255,0)); }
     }
     @keyframes wrapFade{
       0%{ transform: scale(1); }
@@ -220,8 +196,7 @@
     }
     @keyframes textFade{ to{ opacity:0; transform: translateY(6px); } }
 
-    /* After open, hide overlay */
-    #welcome.hidden{ display:none; }
+    #welcomeOverlay.hidden{ display:none; }
 
     /* ============ MAIN SITE ============ */
     .wrap{
@@ -382,7 +357,6 @@
       font-size:12px;
       backdrop-filter: blur(6px);
     }
-    /* Gentle float */
     @media (prefers-reduced-motion: no-preference){
       .ph.show{ animation: floaty 3.4s ease-in-out infinite; }
       .ph.show:nth-child(2){ animation-delay:.25s; }
@@ -415,10 +389,7 @@
       position:relative;
     }
     .lbCard img{ width:100%; height:auto; display:block; }
-    .lbCap{
-      padding:12px 14px;
-      font-weight:700;
-    }
+    .lbCap{ padding:12px 14px; font-weight:700; }
     .lbClose{
       position:absolute;
       top:10px; right:10px;
@@ -430,7 +401,7 @@
       font-weight:900;
     }
 
-    /* Floating hearts (light) */
+    /* Floating hearts */
     .heart{
       position:fixed;
       bottom:-40px;
@@ -462,10 +433,10 @@
 
 <body>
   <!-- WELCOME OVERLAY -->
-<div id="welcomeOverlay" aria-label="Welcome screen">
+  <div id="welcomeOverlay" aria-label="Welcome screen">
     <div class="glow"></div>
 
-    <div style="display:grid; place-items:center;">
+    <div style="display:grid; place-items:center; position:relative; z-index:2;">
       <div class="handsWrap" id="handsWrap">
         <div class="handHalf left"></div>
         <div class="handHalf right"></div>
@@ -497,7 +468,7 @@
           <div class="badge">💍</div>
           <div>
             <h1>Happy 2nd Anniversary, <span>Vadhina & Annaya</span> 💖</h1>
-            <p class="hint">Small surprise made with love for DiVara- Prashanth & Ammu.</p>
+            <p class="hint">Small surprise made with love for DiVara — Prashanth & Ammu.</p>
           </div>
         </div>
 
@@ -508,7 +479,7 @@
         </div>
       </header>
 
-      <!-- Welcome -->
+      <!-- WELCOME (MAIN PAGE) -->
       <section id="welcome" class="page active">
         <div class="hero">
           <div class="big">
@@ -516,10 +487,8 @@
             <div id="twWelcome" class="tw"></div>
 
             <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-              <p class="hint" style="margin:0">
-                
-              </p>
-              <button id="musicBtn" class="primary" onclick="toggleMusic()">Pause song ⏸️</button>
+              <p class="hint" style="margin:0">Press play if music didn’t start automatically 🎶</p>
+              <button id="musicBtn" class="primary" onclick="toggleMusic()">Play song 🎶</button>
             </div>
           </div>
 
@@ -550,42 +519,54 @@
         </div>
 
         <div class="gallery" id="gallery">
-          <div class="ph" data-src="1.jpeg" data-cap="A moment to remember">
-            <img src="1.jpeg" alt="Memory 1"><div class="cap">A moment to remember</div>
+          <div class="ph" data-src="11.jpeg" data-cap="A Fairytale Marriage">
+            <img src="11.jpeg" alt="Memory 1"><div class="cap">A Fairytale Marriage</div>
           </div>
-          <div class="ph" data-src="2.jpeg" data-cap="Together looks perfect">
-            <img src="2.jpeg" alt="Memory 2"><div class="cap">Together looks perfect</div>
+          <div class="ph" data-src="22.jpeg" data-cap="Love in little things">
+            <img src="22.jpeg" alt="Memory 2"><div class="cap">Love in little things</div>
           </div>
-          <div class="ph" data-src="3.jpeg" data-cap="Smiles that stay">
-            <img src="3.jpeg" alt="Memory 3"><div class="cap">Smiles that stay</div>
+          <div class="ph" data-src="33.jpeg" data-cap="Bridegroom">
+            <img src="33.jpeg" alt="Memory 3"><div class="cap">Bridegroom</div>
           </div>
-          <div class="ph" data-src="4.jpeg" data-cap="Your best chapter">
-            <img src="4.jpeg" alt="Memory 4"><div class="cap">Your best chapter</div>
+          <div class="ph" data-src="44.jpeg" data-cap="Bride">
+            <img src="44.jpeg" alt="Memory 4"><div class="cap">Bride</div>
           </div>
-          <div class="ph" data-src="5.jpeg" data-cap="Love in little things">
-            <img src="5.jpeg" alt="Memory 5"><div class="cap">Love in little things</div>
+          <div class="ph" data-src="55.jpeg" data-cap="Blessed">
+            <img src="55.jpeg" alt="Memory 5"><div class="cap">Blessed</div>
           </div>
-          <div class="ph" data-src="6.jpeg" data-cap="Forever vibes">
-            <img src="6.jpeg" alt="Memory 6"><div class="cap">Forever vibes</div>
+          <div class="ph" data-src="66.jpeg" data-cap="Together Looks Perfect">
+            <img src="66.jpeg" alt="Memory 6"><div class="cap">Together Looks Perfect</div>
+          </div>
+          <div class="ph" data-src="77.jpeg" data-cap="A Moment to remember">
+            <img src="77.jpeg" alt="Memory 6"><div class="cap">A Moment to remember</div>
+          </div>
+          <div class="ph" data-src="88.jpeg" data-cap="Smiles that Stay">
+            <img src="88.jpeg" alt="Memory 6"><div class="cap">Smiles That Stay</div>
+          </div>
+          <div class="ph" data-src="99.jpeg" data-cap="Forever Vibes">
+            <img src="99.jpeg" alt="Memory 6"><div class="cap">Forever vibes</div>
+          </div>
+          <div class="ph" data-src="110.jpeg" data-cap="Your Best Chapter">
+            <img src="110.jpeg" alt="Memory 6"><div class="cap">Your Best Chapter</div>
+          </div>
+          <div class="ph" data-src="111.jpeg" data-cap="Forever">
+            <img src="111.jpeg" alt="Memory 6"><div class="cap">Forever</div>
           </div>
         </div>
       </section>
 
-      <!-- Wishes -->
+      <!-- WISHES -->
       <section id="wishes" class="page">
         <div class="big">
           <b>Anniversary Wishes for DiVara 💌</b>
           <div id="twWishes" class="tw"></div>
 
-          <p class="hint" style="margin-top:10px">
-            A small wish from our hearts…
-          </p>
+          <p class="hint" style="margin-top:10px">A small wish from our hearts…</p>
 
           <textarea id="annivLetter">❤️DiVara❤️
 
 💍Happy 2nd Wedding Anniversary💍❤️
 
-            
 Across two lands, two dreams once grew,
 One heart in the USA, one soul in India too.
 By His grace, their paths aligned,
@@ -607,9 +588,8 @@ Happy 2nd Wedding Anniversary
 — DiVara,
 Heaven’s prayer 🤍
 
-
 With lots of love,
-— Prashanth & Ammu </textarea>
+— Prashanth & Ammu</textarea>
 
           <div class="footer">
             <div class="pill">Tap Memories → open photos ✨</div>
@@ -617,7 +597,6 @@ With lots of love,
           </div>
         </div>
       </section>
-
     </div>
   </div>
 
@@ -627,8 +606,8 @@ With lots of love,
   </audio>
 
   <script>
-    /* ====== OPEN WORLD (WELCOME) ====== */
-    const welcome = document.getElementById('welcome');
+    /* ====== OPEN WORLD (WELCOME OVERLAY) ====== */
+    const welcomeOverlay = document.getElementById('welcomeOverlay');
     const bgm = document.getElementById('bgm');
     const musicBtn = document.getElementById('musicBtn');
     let isPlaying = false;
@@ -639,9 +618,9 @@ With lots of love,
     }
 
     function openWorld(){
-      if(!welcome || welcome.classList.contains('open')) return;
+      if(!welcomeOverlay || welcomeOverlay.classList.contains('open')) return;
 
-      welcome.classList.add('open');
+      welcomeOverlay.classList.add('open');
 
       // Start music right after tap (iPhone allows because user interacted)
       try{
@@ -650,7 +629,6 @@ With lots of love,
           isPlaying = true;
           setMusicButton();
         }).catch(()=>{
-          // if iPhone blocks once, user can press play button
           isPlaying = false;
           setMusicButton();
         });
@@ -661,15 +639,14 @@ With lots of love,
 
       // After animation, hide overlay and reveal site
       setTimeout(()=>{
-        welcome.classList.add('hidden');
+        welcomeOverlay.classList.add('hidden');
         document.body.classList.add('ready');
         burstHearts(10);
-        startTypewriter('home');
+        startTypewriter('welcome');
       }, 1050);
     }
 
-    // Tap anywhere on welcome screen
-    welcome.addEventListener('click', openWorld);
+    welcomeOverlay.addEventListener('click', openWorld);
 
     function toggleMusic(){
       if(!bgm) return;
@@ -692,7 +669,8 @@ With lots of love,
     /* ====== NAV / PAGES ====== */
     function showPage(id, btn){
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+      const page = document.getElementById(id);
+      if(page) page.classList.add('active');
 
       document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
       if(btn) btn.classList.add('active');
@@ -722,6 +700,7 @@ May God keep you both happy, protected, and always together. 💖`
     const twState = { welcome:false, wishes:false, timer:null };
 
     function typewrite(el, text, speed=26){
+      if(!el) return;
       el.innerHTML = "";
       let i = 0;
       const cursor = document.createElement('span');
@@ -744,19 +723,17 @@ May God keep you both happy, protected, and always together. 💖`
       step();
     }
 
- function startTypewriter(which){
-  if(twState[which]) return;
-  twState[which] = true;
+    function startTypewriter(which){
+      if(twState[which]) return;
+      twState[which] = true;
 
-  if(which === 'welcome'){
-    typewrite(document.getElementById('twWelcome'), twText.welcome);
-  }
-
-  if(which === 'wishes'){
-    typewrite(document.getElementById('twWishes'), twText.wishes);
-  }
-}
-
+      if(which === 'welcome'){
+        typewrite(document.getElementById('twWelcome'), twText.welcome);
+      }
+      if(which === 'wishes'){
+        typewrite(document.getElementById('twWishes'), twText.wishes);
+      }
+    }
 
     /* ====== COUNTDOWN: Feb 5 12:00 AM ====== */
     function defaultTarget(){
@@ -777,10 +754,14 @@ May God keep you both happy, protected, and always together. 💖`
       const m = Math.floor((sec%3600)/60);
       const s = sec%60;
 
-      document.getElementById('d').textContent = d;
-      document.getElementById('h').textContent = h;
-      document.getElementById('m').textContent = m;
-      document.getElementById('s').textContent = s;
+      const D = document.getElementById('d');
+      const H = document.getElementById('h');
+      const M = document.getElementById('m');
+      const S = document.getElementById('s');
+      if(D) D.textContent = d;
+      if(H) H.textContent = h;
+      if(M) M.textContent = m;
+      if(S) S.textContent = s;
     }
     tick();
     setInterval(tick, 1000);
@@ -803,32 +784,38 @@ May God keep you both happy, protected, and always together. 💖`
     }
     function burstHearts(n=18){ for(let i=0;i<n;i++) spawnHeart(null, 1); }
     setInterval(()=>spawnHeart(), 900);
+
     document.addEventListener('click', (e)=>{
-      // don't spawn hearts on welcome taps (avoid clutter)
       if(!document.body.classList.contains('ready')) return;
       const vw = (e.clientX / window.innerWidth) * 100;
       spawnHeart(vw, 2);
     });
 
-    /* ====== MEMORIES: reveal on scroll + lightbox ====== */
+    /* ====== MEMORIES LIGHTBOX ====== */
     const phCards = Array.from(document.querySelectorAll('.ph'));
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
     const lbCap = document.getElementById('lbCap');
 
     function openLightbox(src, cap){
+      if(!lb || !lbImg || !lbCap) return;
       lbImg.src = src;
       lbCap.textContent = cap || "";
       lb.classList.add('show');
     }
     function closeLightbox(){
+      if(!lb || !lbImg || !lbCap) return;
       lb.classList.remove('show');
       lbImg.src = "";
       lbCap.textContent = "";
     }
-    lb.addEventListener('click', (e)=>{
-      if(e.target === lb) closeLightbox();
-    });
+    window.closeLightbox = closeLightbox;
+
+    if(lb){
+      lb.addEventListener('click', (e)=>{
+        if(e.target === lb) closeLightbox();
+      });
+    }
 
     phCards.forEach(card=>{
       card.addEventListener('click', ()=>{
@@ -849,7 +836,9 @@ May God keep you both happy, protected, and always together. 💖`
 
     /* ====== COPY LETTER ====== */
     async function copyAnnivLetter(){
-      const text = document.getElementById('annivLetter').value.trim();
+      const box = document.getElementById('annivLetter');
+      if(!box) return;
+      const text = box.value.trim();
       try{
         await navigator.clipboard.writeText(text);
         alert("Copied 💖");
@@ -860,7 +849,3 @@ May God keep you both happy, protected, and always together. 💖`
   </script>
 </body>
 </html>
-
-
-
-
