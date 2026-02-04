@@ -109,6 +109,12 @@
   28% { transform: scale(1); }
   42% { transform: scale(1.04); }
   70% { transform: scale(1); }
+        .handsWrap{
+  box-shadow:
+    0 20px 50px rgba(219,39,119,.25),
+    0 0 25px rgba(255,255,255,.45);
+}
+
 }
 
 
@@ -141,36 +147,52 @@
   text-shadow: 0 8px 28px rgba(0,0,0,.20);
 }
 
-  .welcomeText h2{
+ .welcomeText h2{
   margin:0;
-  font-size:30px;
-  letter-spacing:.4px;
+  font-size:34px;
+  letter-spacing:.5px;
   font-weight:900;
-  color:#ffffff;
+  color:#db2777; /* bright rose pink */
+  text-shadow:
+    0 2px 6px rgba(255,255,255,.6),
+    0 8px 25px rgba(219,39,119,.45);
 }
 
-    .welcomeText p{
-  margin:10px 0 0;
-  font-size:16px;
-  font-weight:700;
-  opacity:1;
-  color:#ffffff;
+
+ .welcomeText p{
+  margin:12px 0 0;
+  font-size:17px;
+  font-weight:800;
+  color:#4a044e; /* deep purple */
+  text-shadow:
+    0 2px 4px rgba(255,255,255,.7);
 }
+
 
    .enterPill{
-  margin-top:16px;
+  margin-top:18px;
   display:inline-block;
-  padding:12px 18px;
+  padding:14px 22px;
   border-radius:999px;
-  background: rgba(255,255,255,.30);
-  border:1px solid rgba(255,255,255,.55);
-  box-shadow: 0 14px 35px rgba(0,0,0,.15);
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.85),
+    rgba(255,230,245,.9)
+  );
+  border:1px solid rgba(219,39,119,.45);
+  box-shadow:
+    0 10px 30px rgba(219,39,119,.25),
+    inset 0 0 10px rgba(255,255,255,.6);
   font-weight:900;
-  font-size:16px;
-  letter-spacing:.2px;
-  user-select:none;
+  font-size:17px;
+  letter-spacing:.3px;
+  color:#111827; /* dark text */
 }
-.enterPill span{ color:#db2777; }
+.enterPill span{
+  color:#db2777;
+  text-shadow: 0 2px 6px rgba(219,39,119,.35);
+}
+
 <div class="enterPill">Tap to open <span>your world</span> ✨💖</div>
 
 
@@ -475,29 +497,28 @@
         <div class="title">
           <div class="badge">💍</div>
           <div>
-            <h1>Happy 2nd Anniversary, <span>DiVara</span> 💖</h1>
-            <p class="hint">Vara Prasad & Divya Sri — a small surprise made with love.</p>
+            <h1>Happy 2nd Anniversary, <span>Vadhina & Annaya</span> 💖</h1>
+            <p class="hint">Small surprise made with love for DiVara- Prashanth & Ammu.</p>
           </div>
         </div>
 
         <div class="nav">
-          <button class="active" onclick="showPage('home', this)">Home</button>
+          <button class="active" onclick="showPage('welcome', this)">Welcome</button>
           <button onclick="showPage('memories', this)">Memories</button>
-          <button onclick="showPage('letter', this)">Letter</button>
+          <button onclick="showPage('wishes', this)">Wishes</button>
         </div>
       </header>
 
-      <!-- HOME -->
-      <section id="home" class="page active">
+      <!-- Welcome -->
+      <section id="welcome" class="page active">
         <div class="hero">
           <div class="big">
             <b>Two years… and a lifetime to go ❤️</b>
-            <div id="twHome" class="tw"></div>
+            <div id="twWelcome" class="tw"></div>
 
             <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
               <p class="hint" style="margin:0">
-                Music starts when your world opens 🎶<br>
-                Then explore the memories… slowly.
+                
               </p>
               <button id="musicBtn" class="primary" onclick="toggleMusic()">Pause song ⏸️</button>
             </div>
@@ -526,7 +547,7 @@
       <section id="memories" class="page">
         <div class="big">
           <b>Memories that move 💫</b>
-          <p class="hint">Tap any photo to open it. (Photos: 1.jpeg…6.jpeg)</p>
+          <p class="hint">Tap any photo to open it.</p>
         </div>
 
         <div class="gallery" id="gallery">
@@ -551,29 +572,45 @@
         </div>
       </section>
 
-      <!-- LETTER -->
-      <section id="letter" class="page">
+      <!-- Wishes -->
+      <section id="wishes" class="page">
         <div class="big">
-          <b>A letter for DiVara 💌</b>
-          <div id="twLetter" class="tw"></div>
+          <b>Anniversary Wishes for DiVara 💌</b>
+          <div id="twWishes" class="tw"></div>
 
           <p class="hint" style="margin-top:10px">
-            A small wish from the heart…
+            A small wish from our hearts…
           </p>
 
-          <textarea id="annivLetter">Dear Vara Prasad & Divya Sri (DiVara),
+          <textarea id="annivLetter">❤️DiVara❤️
 
-Happy 2nd Wedding Anniversary 💍❤️
-Two years may sound small in time, but it’s already a beautiful proof of love, patience, and togetherness.
+💍Happy 2nd Wedding Anniversary💍❤️
 
-Watching you both as DiVara makes my heart happy — the way you support each other, respect each other, and keep choosing each other every day.
-May your bond grow stronger with every year, and may your home always be filled with peace, laughter, and God’s blessings.
+            
+Across two lands, two dreams once grew,
+One heart in the USA, one soul in India too.
+By His grace, their paths aligned,
+An arranged bond, by Jesus designed.
 
-Wishing you a lifetime of togetherness and endless happiness.
+With parents’ blessings and love so true,
+They walked as one, hearts steady and new.
+Now together, where hopes belong,
+Hand in hand, growing happy and strong.
 
-Happy Anniversary, DiVara ❤️
+Two years of togetherness, blessed and bright,
+Guided by faith, wrapped in His light.
+May your home be filled with laughter and light,
+May your family grow in love day and night.
+
+Forever blessed, in faith and care,
+Happy 2nd Wedding Anniversary
+
+— DiVara,
+Heaven’s prayer 🤍
+
+
 With lots of love,
-— (Your Name)</textarea>
+— Prashanth & Ammu </textarea>
 
           <div class="footer">
             <div class="pill">Tap Memories → open photos ✨</div>
@@ -670,7 +707,7 @@ With lots of love,
 
     /* ====== TYPEWRITER ====== */
     const twText = {
-      home:
+      welcome:
 `Happy 2nd Wedding Anniversary, DiVara 💍
 Vara Prasad & Divya Sri —
 two hearts, one beautiful journey.
@@ -678,9 +715,8 @@ two hearts, one beautiful journey.
 May your love grow deeper,
 your home grow warmer,
 and your smiles grow brighter every year. ❤️`,
-      letter:
+      wishes:
 `DiVara,
-your love is a blessing to the whole family.
 May God keep you both happy, protected, and always together. 💖`
     };
 
@@ -818,4 +854,5 @@ May God keep you both happy, protected, and always together. 💖`
   </script>
 </body>
 </html>
+
 
