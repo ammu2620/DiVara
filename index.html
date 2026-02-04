@@ -462,7 +462,7 @@
 
 <body>
   <!-- WELCOME OVERLAY -->
-  <div id="welcome" aria-label="Welcome screen">
+<div id="welcomeOverlay" aria-label="Welcome screen">
     <div class="glow"></div>
 
     <div style="display:grid; place-items:center;">
@@ -698,8 +698,8 @@ With lots of love,
       if(btn) btn.classList.add('active');
 
       burstHearts(8);
-      if(id === 'home') startTypewriter('home');
-      if(id === 'letter') startTypewriter('letter');
+      if(id === 'welcome') startTypewriter('welcome');
+      if(id === 'wishes') startTypewriter('wishes');
 
       window.scrollTo({top:0, behavior:'smooth'});
     }
@@ -719,7 +719,7 @@ and your smiles grow brighter every year. ❤️`,
 May God keep you both happy, protected, and always together. 💖`
     };
 
-    const twState = { home:false, letter:false, timer:null };
+    const twState = { welcome:false, wishes:false, timer:null };
 
     function typewrite(el, text, speed=26){
       el.innerHTML = "";
@@ -744,12 +744,19 @@ May God keep you both happy, protected, and always together. 💖`
       step();
     }
 
-    function startTypewriter(which){
-      if(twState[which]) return;
-      twState[which] = true;
-      if(which === 'home') typewrite(document.getElementById('twHome'), twText.home);
-      if(which === 'letter') typewrite(document.getElementById('twLetter'), twText.letter);
-    }
+ function startTypewriter(which){
+  if(twState[which]) return;
+  twState[which] = true;
+
+  if(which === 'welcome'){
+    typewrite(document.getElementById('twWelcome'), twText.welcome);
+  }
+
+  if(which === 'wishes'){
+    typewrite(document.getElementById('twWishes'), twText.wishes);
+  }
+}
+
 
     /* ====== COUNTDOWN: Feb 5 12:00 AM ====== */
     function defaultTarget(){
@@ -853,6 +860,7 @@ May God keep you both happy, protected, and always together. 💖`
   </script>
 </body>
 </html>
+
 
 
 
